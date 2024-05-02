@@ -1,10 +1,14 @@
 import Header from "./_components/ui/header";
+import Search from "./_components/ui/seach";
 
 const Home = () => {
   return (
-    <div className="h-screen w-full" >
+    <>
       <Header />
-    </div>
+      <div className="px-5 pt-6">
+      <Search/>
+      </div>
+    </>
   );
 };
 
