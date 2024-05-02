@@ -1,9 +1,9 @@
-import { Button } from "./_components/ui/button";
+import Header from "./_components/ui/header";
 
 const Home = () => {
   return (
-    <div className="mx-6 h-screen w-full bg-red-500 py-5">
-      <Button>Clicar</Button>
+    <div className="h-screen w-full" >
+      <Header />
     </div>
   );
 };
