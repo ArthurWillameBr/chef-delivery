@@ -1,7 +1,7 @@
 "use client";
 
+import DeliveryInfo from "@/app/_components/delivery-info";
 import { Button } from "@/app/_components/ui/button";
-import { Card } from "@/app/_components/ui/card";
 import DiscountBadge from "@/app/_components/ui/discount-badge";
 import ProductList from "@/app/_components/ui/product-list";
 import {
@@ -9,12 +9,7 @@ import {
   formatCurrency,
 } from "@/app/_helpers/price";
 import { Prisma } from "@prisma/client";
-import {
-  BikeIcon,
-  MinusCircleIcon,
-  PlusCircleIcon,
-  TimerIcon,
-} from "lucide-react";
+import { MinusCircleIcon, PlusCircleIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -46,7 +41,7 @@ const ProductDetails = ({
       return currentState - 1;
     });
   return (
-    <div className="py-5 relative z-50 rounded-tl-3xl rounded-tr-3xl mt-[-1.5rem] bg-white">
+    <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5">
       <div className="flex items-center gap-1 px-5">
         <div className="relative size-6">
           <Image
@@ -100,30 +95,7 @@ const ProductDetails = ({
         </div>
       </div>
       <div className="px-5">
-        <Card className="my-4 flex justify-around  py-3">
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <span className="text-xs">Entrega</span>
-              <BikeIcon className="size-4" />
-            </div>
-            {Number(product.restaurant.deliveryFee) > 0 ? (
-              <p className="text-sm font-semibold">
-                {formatCurrency(Number(product.restaurant.deliveryFee))}
-              </p>
-            ) : (
-              <p className="text-sm font-semibold">Grátis</p>
-            )}
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <span className="text-xs">Entrega</span>
-              <TimerIcon className="size-4" />
-            </div>
-            <span className="text-sm font-semibold">
-              {product.restaurant.deliveryTimeMinutes}min
-            </span>
-          </div>
-        </Card>
+        <DeliveryInfo restaurant={product.restaurant} />
       </div>
       <div className="mt-6 space-y-3 px-5">
         <h3 className="font-semibold">Sobre</h3>

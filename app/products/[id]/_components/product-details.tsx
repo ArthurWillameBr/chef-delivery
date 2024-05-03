@@ -16,6 +16,7 @@ import {
   TimerIcon,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 interface ProductInfoProps {
@@ -45,21 +46,25 @@ const ProductDetails = ({
 
       return currentState - 1;
     });
+
   return (
-    <div className="py-5 relative z-50 rounded-tl-3xl rounded-tr-3xl mt-[-1.5rem] bg-white">
-      <div className="flex items-center gap-1 px-5">
-        <div className="relative size-6">
-          <Image
-            src={product.restaurant.imageUrl}
-            alt={product.restaurant.name}
-            fill
-            className="rounded-full object-cover"
-          />
+    <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5">
+      
+      <Link href={`/restaurants/${product.restaurant.id}`}>
+        <div className="flex items-center gap-1 px-5">
+          <div className="relative size-6">
+            <Image
+              src={product.restaurant.imageUrl}
+              alt={product.restaurant.name}
+              fill
+              className="rounded-full object-cover"
+            />
+          </div>
+          <span className="text-sm text-muted-foreground">
+            {product.restaurant.name}
+          </span>
         </div>
-        <span className="text-sm text-muted-foreground">
-          {product.restaurant.name}
-        </span>
-      </div>
+      </Link>
       <h1 className="mt-2 px-4 text-xl font-semibold">{product.name}</h1>
 
       <div className="flex justify-between px-5">
@@ -136,8 +141,8 @@ const ProductDetails = ({
           <ProductList products={complementaryProducts} />
         </div>
       </div>
-      <div className="px-5 mt-4">
-            <Button className="w-full font-semibold">Adicionar a sacola</Button>
+      <div className="mt-4 px-5">
+        <Button className="w-full font-semibold">Adicionar a sacola</Button>
       </div>
     </div>
   );
