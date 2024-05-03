@@ -46,7 +46,7 @@ const ProductDetails = ({
       return currentState - 1;
     });
   return (
-    <div className="py-5">
+    <div className="py-5 relative z-50 rounded-tl-3xl rounded-tr-3xl mt-[-1.5rem] bg-white">
       <div className="flex items-center gap-1 px-5">
         <div className="relative size-6">
           <Image
