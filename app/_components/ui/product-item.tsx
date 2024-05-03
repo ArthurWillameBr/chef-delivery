@@ -5,6 +5,7 @@ import {
   formatCurrency,
 } from "@/app/_helpers/price";
 import { ArrowDownIcon } from "lucide-react";
+import Link from "next/link";
 interface ProductItemPros {
   product: Prisma.ProductGetPayload<{
     include: {
@@ -19,6 +20,7 @@ interface ProductItemPros {
 
 const ProductItem = ({ product }: ProductItemPros) => {
   return (
+    <Link href={`/products/${product.id}`}>
     <main className="w-[150px] min-w-[150px] space-y-2">
       <div className=" relative h-[150px] w-full">
         <Image
@@ -27,7 +29,6 @@ const ProductItem = ({ product }: ProductItemPros) => {
           fill
           className="rounded-lg object-cover shadow-lg"
         />
-
         {product.discountPercentage && (
           <div className="absolute left-2 top-2 flex items-center gap-[3px] rounded-full bg-primary px-2 py-[2px] text-primary-foreground">
             <ArrowDownIcon className="size-4" />
@@ -54,6 +55,8 @@ const ProductItem = ({ product }: ProductItemPros) => {
         </span>
       </div>
     </main>
+    
+    </Link>
   );
 };
 
