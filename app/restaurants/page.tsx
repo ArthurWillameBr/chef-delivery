@@ -29,8 +29,10 @@ const Restaurants = () => {
     <>
       <Header />
       <div className="p-5">
-        <h1 className="py-4 text-lg font-semibold">Restaurantes Encontrados</h1>
-        <div className="grid grid-cols-2 gap-6">
+        <h1 className="py-4 text-lg font-semibold ">
+          Restaurantes Encontrados
+        </h1>
+        <div className="flex flex-col gap-6">
           {restaurants.map((restaurant) => (
             <RestaurantItem
               key={restaurant.id}
