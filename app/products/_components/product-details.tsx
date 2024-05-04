@@ -1,6 +1,6 @@
 "use client";
 
-import DeliveryInfo from "@/app/_components/delivery-info";
+import DeliveryInfo from "../../../app/_components/ui/delivery-info";
 import { Button } from "@/app/_components/ui/button";
 import DiscountBadge from "@/app/_components/ui/discount-badge";
 import ProductList from "@/app/_components/ui/product-list";

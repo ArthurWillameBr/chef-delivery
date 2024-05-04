@@ -11,20 +11,20 @@ const Restaurants = () => {
   const searchParams = useSearchParams();
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
-  const searchFor = searchParams.get("search");
-  useEffect(() => {
+const searchFor = searchParams.get("search");
+useEffect(() => {
     const fetchRestaurants = async () => {
-      if (!searchFor) return;
-      const foundRestaurants = await searchForRestaurants(searchFor);
-      setRestaurants(foundRestaurants);
+        if (!searchFor) return;
+        const foundRestaurants = await searchForRestaurants(searchFor);
+        setRestaurants(foundRestaurants);
     };
 
     fetchRestaurants();
-  }, [searchParams]);
+}, [searchParams, searchFor]);
 
-  if (!searchFor) {
+if (!searchFor) {
     return notFound();
-  }
+}
   return (
     <>
       <Header />
