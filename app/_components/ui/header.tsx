@@ -9,7 +9,7 @@ import {
   LogInIcon,
   LogOut,
   MenuIcon,
-  ScrollText,
+  ScrollTextIcon,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -86,12 +86,15 @@ const Header = () => {
                     <span className="block">Início</span>
                   </Button>
                   <Button
-                    variant="ghost"
-                    className="w-full items-center justify-start space-x-2 rounded-full"
-                  >
-                    <ScrollText className="size-5" />{" "}
+                  variant="ghost"
+                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                  asChild
+                >
+                  <Link href="/my-orders">
+                    <ScrollTextIcon size={16} />
                     <span className="block">Meus Pedidos</span>
-                  </Button>
+                  </Link>
+                </Button>
                   <Button
                     variant="ghost"
                     className="w-full items-center justify-start space-x-2 rounded-full"
