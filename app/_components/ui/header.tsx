@@ -1,10 +1,37 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { Button } from "./button";
-import { MenuIcon } from "lucide-react";
+import {
+  HeartIcon,
+  HomeIcon,
+  LogInIcon,
+  LogOut,
+  MenuIcon,
+  ScrollText,
+} from "lucide-react";
 import Link from "next/link";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./sheet";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { Separator } from "./separator";
 
 const Header = () => {
+  const { data } = useSession();
+
+  const handleSignOutClick = () => {
+    signOut();
+  };
+  const handleSigInClick = () => {
+    signIn();
+  };
   return (
     <div className="flex justify-between px-5 pt-6">
       <div className="relative h-[30px] w-[100px]">
@@ -12,13 +39,90 @@ const Header = () => {
           <Image src="/Logo.png" alt="logo" fill className="object-cover" />
         </Link>
       </div>
-      <Button
-        variant="outline"
-        size="icon"
-        className="border-none bg-transparent"
-      >
-        <MenuIcon />
-      </Button>
+
+      <Sheet>
+        <SheetTrigger>
+          <Button
+            variant="outline"
+            size="icon"
+            className="border-none bg-transparent"
+          >
+            <MenuIcon />
+          </Button>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle className="text-left">Menu</SheetTitle>
+            {data?.user ? (
+              <>
+                <div className="flex items-center gap-3 pt-2 ">
+                  <Avatar>
+                    <AvatarImage
+                      src={data?.user?.image as string | undefined}
+                    />
+                    <AvatarFallback>
+                      {data?.user?.name?.split(" ")[0][0]}
+                      {data?.user?.name?.split(" ")[1][0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h3 className="text-left font-semibold">
+                      {data?.user?.name}
+                    </h3>
+                    <span className="block text-xs text-muted-foreground ">
+                      {data?.user?.email}
+                    </span>
+                  </div>
+                </div>
+                <div className="py-4">
+                  <Separator />
+                </div>
+                <div className="space-y-2">
+                  <Button
+                    variant="ghost"
+                    className="w-full items-center justify-start space-x-2 rounded-full"
+                  >
+                    <HomeIcon className="size-5" />{" "}
+                    <span className="block">Início</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="w-full items-center justify-start space-x-2 rounded-full"
+                  >
+                    <ScrollText className="size-5" />{" "}
+                    <span className="block">Meus Pedidos</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="w-full items-center justify-start space-x-2 rounded-full"
+                  >
+                    <HeartIcon className="size-5" />{" "}
+                    <span className="block">Restaurantes Favoritos</span>
+                  </Button>
+                </div>
+                <div className="py-4">
+                  <Separator />
+                </div>
+                <Button
+                  variant="ghost"
+                  className="w-full items-center justify-start space-x-2 rounded-full"
+                  onClick={handleSignOutClick}
+                >
+                  <LogOut className="size-5" />{" "}
+                  <span className="block">Sair da conta</span>
+                </Button>
+              </>
+            ) : (
+              <div className="flex items-center justify-between pt-8">
+                <h2 className="font-semibold">Faça seu login!</h2>
+                <Button size="icon" onClick={handleSigInClick}>
+                  <LogInIcon />
+                </Button>
+              </div>
+            )}
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
