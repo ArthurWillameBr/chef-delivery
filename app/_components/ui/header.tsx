@@ -103,14 +103,16 @@ const Header = () => {
                 <div className="py-4">
                   <Separator />
                 </div>
-                <Button
-                  variant="ghost"
-                  className="w-full items-center justify-start space-x-2 rounded-full"
-                  onClick={handleSignOutClick}
-                >
-                  <LogOut className="size-5" />{" "}
-                  <span className="block">Sair da conta</span>
-                </Button>
+                <div>
+                  <Button
+                    variant="ghost"
+                    className="w-full items-center justify-start space-x-2 rounded-full"
+                    onClick={handleSignOutClick}
+                  >
+                    <LogOut className="size-5" />{" "}
+                    <span className="block">Sair da conta</span>
+                  </Button>
+                </div>
               </>
             ) : (
               <div className="flex items-center justify-between pt-8">

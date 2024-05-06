@@ -10,6 +10,8 @@ export interface CartProduct
     include: {
       restaurant: {
         select: {
+          id: true;
+          deliveryTimeMinutes: true;
           deliveryFee: true;
         };
       };
@@ -20,7 +22,7 @@ export interface CartProduct
 
 interface ICartContext {
   products: CartProduct[];
-  subTotalPrice: number;
+  subtotalPrice: number;
   totalPrice: number;
   totalQuantity: number;
   totalDiscounts: number;
@@ -40,11 +42,12 @@ interface ICartContext {
   decreaseProductQuantity: (productId: string) => void;
   IncreaseProductQuantity: (productId: string) => void;
   deleteProductCart: (productId: string) => void;
+  clearCart: () => void;
 }
 
 export const CartContext = createContext<ICartContext>({
   products: [],
-  subTotalPrice: 0,
+  subtotalPrice: 0,
   totalPrice: 0,
   totalQuantity: 0,
   totalDiscounts: 0,
@@ -52,12 +55,13 @@ export const CartContext = createContext<ICartContext>({
   decreaseProductQuantity: () => {},
   IncreaseProductQuantity: () => {},
   deleteProductCart: () => {},
+  clearCart: () => {},
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
 
-  const subTotalPrice = useMemo(() => {
+  const subtotalPrice = useMemo(() => {
     return products.reduce((acc, product) => {
       return acc + Number(product.price) * product.quantity;
     }, 0);
@@ -76,7 +80,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }, 0);
   }, [products])
 
-  const totalDiscounts = subTotalPrice - totalPrice + Number(products?.[0]?.restaurant?.deliveryFee);
+  const totalDiscounts = subtotalPrice - totalPrice + Number(products?.[0]?.restaurant?.deliveryFee);
+
+  const clearCart = () => {
+   return setProducts([]);
+  }
 
   const decreaseProductQuantity = (productId: string) => {
     return setProducts((prev) =>
@@ -160,9 +168,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       value={{
         products,
         addProductsToCart,
+        clearCart,
         totalPrice,
         totalQuantity,
-        subTotalPrice,
+        subtotalPrice,
         totalDiscounts,
         decreaseProductQuantity,
         IncreaseProductQuantity,
