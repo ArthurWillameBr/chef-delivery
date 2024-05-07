@@ -2,8 +2,8 @@ import Image from "next/image";
 import { CartContext, CartProduct } from "../_context/cart";
 import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price";
 import { Button } from "./ui/button";
-import { MinusCircleIcon, PlusCircleIcon, Trash } from "lucide-react";
-import { useContext } from "react";
+import { ChevronLeftIcon, ChevronRightIcon, TrashIcon } from "lucide-react";
+import { memo, useContext } from "react";
 
 interface CartItemProps {
   cartProduct: CartProduct;
@@ -12,32 +12,34 @@ interface CartItemProps {
 const CartItem = ({ cartProduct }: CartItemProps) => {
   const {
     decreaseProductQuantity,
-    IncreaseProductQuantity,
-    deleteProductCart,
+    increaseProductQuantity,
+    removeProductFromCart,
   } = useContext(CartContext);
-  const handleDecreaseQuantityClick = () => {
+
+  const handleDecreaseQuantityClick = () =>
     decreaseProductQuantity(cartProduct.id);
-  };
-  const handleIncreaseProductQuantityClick = () => {
-    IncreaseProductQuantity(cartProduct.id);
-  };
-  const handleDeleteProductCart = () => {
-    deleteProductCart(cartProduct.id);
-  };
+
+  const handleIncreaseQuantityClick = () =>
+    increaseProductQuantity(cartProduct.id);
+
+  const handleRemoveClick = () => removeProductFromCart(cartProduct.id);
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">
+        {/* IMAGEM E INFO */}
         <div className="relative h-20 w-20">
           <Image
             src={cartProduct.imageUrl}
             alt={cartProduct.name}
             fill
+            sizes="100%"
             className="rounded-lg object-cover"
           />
         </div>
 
-        <div className="space-y-2">
-          <h3 className="text-xs font-semibold">{cartProduct.name}</h3>
+        <div className="space-y-1">
+          <h3 className="text-xs">{cartProduct.name}</h3>
 
           <div className="flex items-center gap-1">
             <h4 className="text-sm font-semibold">
@@ -54,38 +56,44 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
             )}
           </div>
 
-          <div className="flex items-center gap-2 text-center">
+          {/* QUANTIDADE */}
+
+          <div className="flex items-center text-center">
             <Button
-              className="size-8 border border-solid border-muted-foreground focus:text-primary"
-              variant="ghost"
               size="icon"
-              onClick={handleDecreaseQuantityClick}
+              variant="ghost"
+              className="h-7 w-7 border border-solid border-muted-foreground"
             >
-              <MinusCircleIcon className="size-5" />
+              <ChevronLeftIcon
+                size={16}
+                onClick={handleDecreaseQuantityClick}
+              />
             </Button>
-            <span className="w-4">{cartProduct.quantity}</span>
+            <p className="block w-8 text-xs">{cartProduct.quantity}</p>
             <Button
-              className="size-8 border border-solid border-muted-foreground focus:text-primary"
-              variant="ghost"
               size="icon"
-              onClick={handleIncreaseProductQuantityClick}
+              className="h-7 w-7"
+              onClick={handleIncreaseQuantityClick}
             >
-              <PlusCircleIcon className="size-5" />
+              <ChevronRightIcon size={16} />
             </Button>
           </div>
         </div>
       </div>
 
+      {/* BOTÃO DE DELETAR */}
       <Button
         size="icon"
         variant="ghost"
-        className="size-8 border border-muted-foreground hover:text-red-500"
-        onClick={handleDeleteProductCart}
+        className="h-7 w-7 border border-solid border-muted-foreground"
+        onClick={handleRemoveClick}
       >
-        <Trash className="size-5" />
+        <TrashIcon size={16} />
       </Button>
     </div>
   );
 };
 
-export default CartItem;
+export default memo(CartItem, (prev, next) => {
+  return prev.cartProduct.quantity === next.cartProduct.quantity;
+});
