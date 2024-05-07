@@ -1,7 +1,11 @@
 import Restaurants from "./_components/restaurants";
-
+import { Suspense } from "react";
 const RestaurantsPage = () => {
-  return <Restaurants/>;
-}
- 
+  return (
+    <Suspense>
+      <Restaurants />
+    </Suspense>
+  );
+};
+
 export default RestaurantsPage;
