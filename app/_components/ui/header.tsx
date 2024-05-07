@@ -78,6 +78,7 @@ const Header = () => {
                   <Separator />
                 </div>
                 <div className="space-y-2">
+                  <div>
                   <Button
                     variant="ghost"
                     className="w-full items-center justify-start space-x-2 rounded-full"
@@ -85,6 +86,8 @@ const Header = () => {
                     <HomeIcon className="size-5" />{" "}
                     <span className="block">Início</span>
                   </Button>
+                  </div>
+                  <div>
                   <Button
                   variant="ghost"
                   className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
@@ -95,13 +98,19 @@ const Header = () => {
                     <span className="block">Meus Pedidos</span>
                   </Link>
                 </Button>
+                </div>
+                <div>
                   <Button
                     variant="ghost"
                     className="w-full items-center justify-start space-x-2 rounded-full"
+                    asChild
                   >
-                    <HeartIcon className="size-5" />{" "}
+                    <Link href="/my-favorite-restaurants">
+                    <HeartIcon size={16} />
                     <span className="block">Restaurantes Favoritos</span>
+                  </Link>
                   </Button>
+                  </div>
                 </div>
                 <div className="py-4">
                   <Separator />
