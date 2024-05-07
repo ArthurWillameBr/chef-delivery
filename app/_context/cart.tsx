@@ -32,6 +32,8 @@ interface ICartContext {
             restaurant: {
                 select: {
                     deliveryFee: true;
+                    id: true;
+                    deliveryTimeMinutes: true;
                 };
             };
         };
@@ -130,6 +132,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           restaurant: {
             select: {
               deliveryFee: true;
+              id: true;
+              deliveryTimeMinutes: true;
             };
           };
         };

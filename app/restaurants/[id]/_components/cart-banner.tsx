@@ -1,19 +1,26 @@
-"use client"
+"use client";
 
 import { Button } from "@/app/_components/ui/button";
 import Cart from "@/app/_components/ui/cart";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/app/_components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/app/_components/ui/sheet";
 import { CartContext } from "@/app/_context/cart";
 import { formatCurrency } from "@/app/_helpers/price";
 import { Restaurant } from "@prisma/client";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 interface CartBannerProps {
   restaurant: Pick<Restaurant, "id">;
 }
 
 const CartBanner = ({ restaurant }: CartBannerProps) => {
-  const { products, totalPrice, totalQuantity } = useContext(CartContext)
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const { products, totalPrice, totalQuantity } = useContext(CartContext);
   const restaurantHasProductsOnCart = products.some(
     (product) => product.restaurantId === restaurant.id,
   );
@@ -21,7 +28,7 @@ const CartBanner = ({ restaurant }: CartBannerProps) => {
   if (!restaurantHasProductsOnCart) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 z-50 w-full shadow-xl bg-white p-5 pt-3">
+    <div className="fixed bottom-0 left-0 z-50 w-full bg-white p-5 pt-3 shadow-xl">
       <div className="flex items-center justify-between">
         <div className="space-y-2">
           <span className="text-xs text-muted-foreground">
@@ -34,16 +41,14 @@ const CartBanner = ({ restaurant }: CartBannerProps) => {
             </span>
           </h3>
         </div>
-        <Sheet>
-          <SheetTrigger>
-            <Button>Ver sacola</Button>
-          </SheetTrigger>
+
+        <Button onClick={() => setIsCartOpen(true)}>Ver sacola</Button>
+        <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
           <SheetContent className="w-[90vw]">
             <SheetHeader>
               <SheetTitle className="text-left">Sacola</SheetTitle>
             </SheetHeader>
-
-            <Cart />
+            <Cart setIsOpen={setIsCartOpen} />
           </SheetContent>
         </Sheet>
       </div>
