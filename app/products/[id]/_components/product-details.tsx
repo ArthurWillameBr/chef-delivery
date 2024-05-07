@@ -55,12 +55,11 @@ const ProductDetails = ({
   complementaryProducts,
 }: ProductInfoProps) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { addProductsToCart, products } = useContext(CartContext);
+  const { addProductToCart, products } = useContext(CartContext);
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
 
-  console.log(products);
   const addToCart = ({emptyCart}: {emptyCart?: boolean}) => {
-    addProductsToCart({product, quantity, emptyCart});
+    addProductToCart({ product: { ...product, quantity }, emptyCart });
     setIsCartOpen(true);
   };
   const handleAddToCart = () => {
