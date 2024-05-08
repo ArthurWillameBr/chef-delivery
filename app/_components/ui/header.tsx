@@ -34,11 +34,17 @@ const Header = () => {
   };
   return (
     <div className="flex justify-between px-5 pt-6">
-      <div className="relative h-[30px] w-[100px]">
-        <Link href={"/"}>
-          <Image src="/Logo.png" alt="logo" fill className="object-cover" />
-        </Link>
-      </div>
+      <Link href="/">
+        <div className="relative h-[30px] w-[100px]">
+          <Image
+            src="/Logo.png"
+            alt="logo"
+            sizes="100%"
+            fill
+            className="object-cover"
+          />
+        </div>
+      </Link>
 
       <Sheet>
         <SheetTrigger asChild>
@@ -79,37 +85,37 @@ const Header = () => {
                 </div>
                 <div className="space-y-2">
                   <div>
-                  <Button
-                    variant="ghost"
-                    className="w-full items-center justify-start space-x-2 rounded-full"
-                  >
-                    <HomeIcon className="size-5" />{" "}
-                    <span className="block">Início</span>
-                  </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full items-center justify-start space-x-2 rounded-full"
+                    >
+                      <HomeIcon className="size-5" />{" "}
+                      <span className="block">Início</span>
+                    </Button>
                   </div>
                   <div>
-                  <Button
-                  variant="ghost"
-                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
-                  asChild
-                >
-                  <Link href="/my-orders">
-                    <ScrollTextIcon size={16} />
-                    <span className="block">Meus Pedidos</span>
-                  </Link>
-                </Button>
-                </div>
-                <div>
-                  <Button
-                    variant="ghost"
-                    className="w-full items-center justify-start space-x-2 rounded-full"
-                    asChild
-                  >
-                    <Link href="/my-favorite-restaurants">
-                    <HeartIcon size={16} />
-                    <span className="block">Restaurantes Favoritos</span>
-                  </Link>
-                  </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                      asChild
+                    >
+                      <Link href="/my-orders">
+                        <ScrollTextIcon size={16} />
+                        <span className="block">Meus Pedidos</span>
+                      </Link>
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      variant="ghost"
+                      className="w-full items-center justify-start space-x-2 rounded-full"
+                      asChild
+                    >
+                      <Link href="/my-favorite-restaurants">
+                        <HeartIcon size={16} />
+                        <span className="block">Restaurantes Favoritos</span>
+                      </Link>
+                    </Button>
                   </div>
                 </div>
                 <div className="py-4">

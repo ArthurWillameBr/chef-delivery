@@ -1,6 +1,6 @@
 import { CartContext } from "@/app/_context/cart";
 import { useContext, useState } from "react";
-import CartItem from "../cart-item";
+import CartItem from "./cart-item";
 import { Card, CardContent } from "./card";
 import { formatCurrency } from "@/app/_helpers/price";
 import { Separator } from "./separator";
